@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>CareMind AI</title>
+
+<link rel="stylesheet" href="style.css">
+
+<!-- Medical icons -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 class="title">
+<i class="fa-solid fa-heart-pulse"></i> CareMind AI
+</h1>
+
+<p class="subtitle">
+AI Based Disease Prediction & Healthcare Support System
+</p>
+
+
+<div class="card">
+
+<h2><i class="fa-solid fa-stethoscope"></i> Enter Symptoms</h2>
+
+<div class="input-area">
+
+<input id="symptomInput" placeholder="Type symptom here">
+
+<button onclick="addSymptom()">Add</button>
+
+</div>
+
+
+<h3>Selected Symptoms</h3>
+
+<ul id="symptomList"></ul>
+
+<button class="predict-btn" onclick="predict()">
+<i class="fa-solid fa-magnifying-glass"></i>
+Predict Disease
+</button>
+
+</div>
+
+
+<div class="card result-card">
+
+<h2><i class="fa-solid fa-hospital"></i> Prediction Result</h2>
+
+<p>
+🦠 <b>Disease:</b>
+<span id="disease">-</span>
+</p>
+
+<p>
+📊 <b>Confidence:</b>
+<span id="confidence">-</span>
+</p>
+
+<p>
+🏥 <b>Recommendation:</b>
+<span id="referral">-</span>
+</p>
+
+<div class="confidence-bar">
+<div id="confidenceFill"></div>
+</div>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
