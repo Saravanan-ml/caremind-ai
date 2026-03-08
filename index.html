@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
@@ -10,19 +10,24 @@
 
 <title>CareMind AI</title>
 
-<link rel="stylesheet" href="style.css">
-
 <!-- PWA Manifest -->
 <link rel="manifest" href="manifest.json">
 
-<!-- Theme color for mobile -->
+<!-- Theme color -->
 <meta name="theme-color" content="#2b7a78">
+
+<!-- App icon for iPhone support -->
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<!-- Styles -->
+<link rel="stylesheet" href="style.css">
 
 <!-- Medical icons -->
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
+
 
 <body>
 
@@ -89,13 +94,21 @@ Predict Disease
 
 </div>
 
+
 <script src="script.js"></script>
 
 <!-- Register Service Worker -->
 <script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js")
-  .then(() => console.log("Service Worker Registered"));
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('service-worker.js')
+    .then(function(registration) {
+      console.log('Service Worker Registered:', registration);
+    })
+    .catch(function(error) {
+      console.log('Service Worker Failed:', error);
+    });
+  });
 }
 </script>
 
