@@ -5,9 +5,13 @@ import numpy as np
 from pydantic import BaseModel
 
 # Create FastAPI app
-app = FastAPI(title="CareMind Disease Prediction API")
+app = FastAPI(
+    title="CareMind Disease Prediction API",
+    description="AI-based disease prediction system using RandomForest and XGBoost",
+    version="1.0"
+)
 
-# Enable CORS
+# Enable CORS (allows frontend to call the API)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -15,6 +19,15 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Root route (prevents 404 on homepage)
+@app.get("/")
+def home():
+    return {
+        "message": "CareMind AI API is running 🚀",
+        "docs": "/docs",
+        "endpoint": "/predict"
+    }
 
 # Load models
 rf_model = joblib.load("rf_model.pkl")
@@ -56,6 +69,7 @@ def predict(data: SymptomInput):
     rf_probs = rf_model.predict_proba(input_array)
     xgb_probs = xgb_model.predict_proba(input_array)
 
+    # Ensemble prediction
     ensemble_probs = 0.6 * xgb_probs + 0.4 * rf_probs
 
     predicted_class = np.argmax(ensemble_probs)
