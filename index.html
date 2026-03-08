@@ -3,9 +3,20 @@
 
 <head>
 
+<meta charset="UTF-8">
+
+<!-- Mobile responsive -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>CareMind AI</title>
 
 <link rel="stylesheet" href="style.css">
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="manifest.json">
+
+<!-- Theme color for mobile -->
+<meta name="theme-color" content="#2b7a78">
 
 <!-- Medical icons -->
 <link rel="stylesheet"
@@ -79,6 +90,14 @@ Predict Disease
 </div>
 
 <script src="script.js"></script>
+
+<!-- Register Service Worker -->
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js")
+  .then(() => console.log("Service Worker Registered"));
+}
+</script>
 
 </body>
 </html>
