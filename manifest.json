@@ -1,6 +1,7 @@
 {
   "name": "CareMind AI",
   "short_name": "CareMind",
+  "id": "/caremind-ai/",
   "start_url": "/caremind-ai/",
   "display": "standalone",
   "background_color": "#ffffff",
