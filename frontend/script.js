@@ -2,75 +2,64 @@ let symptoms = []
 
 function addSymptom(){
 
-let input = document.getElementById("symptomInput")
+    let input = document.getElementById("symptomInput")
+    let symptom = input.value.trim()
 
-let symptom = input.value.trim()
+    if(symptom === "") return
 
-if(symptom === "") return
+    symptoms.push(symptom)
 
-symptoms.push(symptom)
+    let li = document.createElement("li")
+    li.innerText = symptom
 
-let li = document.createElement("li")
+    document.getElementById("symptomList").appendChild(li)
 
-li.innerText = symptom
-
-document.getElementById("symptomList").appendChild(li)
-
-input.value=""
-
+    input.value=""
 }
 
 async function predict(){
 
-if(symptoms.length === 0){
+    if(symptoms.length === 0){
+        alert("Please add symptoms first")
+        return
+    }
 
-alert("Please add symptoms first")
+    document.getElementById("disease").innerText="Predicting..."
+    document.getElementById("confidence").innerText="-"
+    document.getElementById("referral").innerText="-"
 
-return
+    try{
 
-}
+        let response = await fetch("https://caremind-ai.onrender.com/predict",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                symptoms:symptoms
+            })
+        })
 
-document.getElementById("disease").innerText="Predicting..."
-document.getElementById("confidence").innerText="-"
-document.getElementById("referral").innerText="-"
+        let data = await response.json()
 
-try{
+        document.getElementById("disease").innerText =
+        data.predicted_disease
 
-let response = await fetch("http://127.0.0.1:8000/predict",{
+        document.getElementById("confidence").innerText =
+        (data.confidence_score * 100).toFixed(2) + "%"
 
-method:"POST",
+        document.getElementById("referral").innerText =
+        data.referral_decision
 
-headers:{
-"Content-Type":"application/json"
-},
+        let bar = document.getElementById("confidenceFill")
 
-body:JSON.stringify({
-symptoms:symptoms
-})
+        bar.style.width = (data.confidence_score * 100) + "%"
 
-})
+    }catch(error){
 
-let data = await response.json()
+        console.log(error)
 
-document.getElementById("disease").innerText =
-data.predicted_disease
+        alert("Error connecting to server")
 
-document.getElementById("confidence").innerText =
-(data.confidence_score*100).toFixed(2)+"%"
-
-document.getElementById("referral").innerText =
-data.referral_decision
-
-let bar = document.getElementById("confidenceFill")
-
-bar.style.width = (data.confidence_score*100)+"%"
-
-}catch(error){
-
-console.log(error)
-
-alert("Error connecting to server")
-
-}
-
+    }
 }
