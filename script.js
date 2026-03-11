@@ -3,7 +3,7 @@ let symptoms = []
 function addSymptom(){
 
     let input = document.getElementById("symptomInput")
-    let symptom = input.value.trim()
+    let symptom = input.value.trim().toLowerCase()
 
     if(symptom === "") return
 
@@ -17,6 +17,7 @@ function addSymptom(){
     input.value=""
 }
 
+
 async function predict(){
 
     if(symptoms.length === 0){
@@ -24,13 +25,17 @@ async function predict(){
         return
     }
 
-    document.getElementById("disease").innerText="Predicting..."
-    document.getElementById("confidence").innerText="-"
-    document.getElementById("referral").innerText="-"
+    // show loading text
+    document.getElementById("disease").innerText="Connecting to AI server..."
+    document.getElementById("confidence").innerText=""
+    document.getElementById("referral").innerText=""
+    document.getElementById("possibleDiseases").innerHTML=""
 
     try{
 
-        let response = await fetch("https://caremind-ai.onrender.com/predict",{
+        let response = await fetch(
+        "https://caremind-ai.onrender.com/predict",
+        {
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -40,26 +45,59 @@ async function predict(){
             })
         })
 
+        if(!response.ok){
+            throw new Error("Server not responding")
+        }
+
         let data = await response.json()
 
+        console.log("API Response:", data)
+
+        // confidence
+        let percent = (data.confidence_score * 100).toFixed(2)
+
         document.getElementById("disease").innerText =
-        data.predicted_disease
+        data.predicted_disease || "Unknown"
 
         document.getElementById("confidence").innerText =
-        (data.confidence_score * 100).toFixed(2) + "%"
+        " — " + percent + "%"
+
+        document.getElementById("confidenceFill").style.width =
+        percent + "%"
 
         document.getElementById("referral").innerText =
-        data.referral_decision
+        data.referral_decision || "Consult doctor"
 
-        let bar = document.getElementById("confidenceFill")
+        // possible diseases
+        let list = document.getElementById("possibleDiseases")
+        list.innerHTML=""
 
-        bar.style.width = (data.confidence_score * 100) + "%"
+        if(data.possible_diseases && data.possible_diseases.length > 0){
+
+            data.possible_diseases.forEach(d=>{
+
+                let li = document.createElement("li")
+
+                li.innerText = d
+
+                list.appendChild(li)
+
+            })
+
+        }else{
+
+            let li=document.createElement("li")
+            li.innerText="No related diseases available"
+            list.appendChild(li)
+
+        }
 
     }catch(error){
 
-        console.log(error)
+        console.error(error)
 
-        alert("Error connecting to server")
+        alert("AI server is waking up. Please try again in a few seconds.")
 
     }
+
 }

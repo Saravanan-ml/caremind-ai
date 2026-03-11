@@ -4,30 +4,16 @@
 <head>
 
 <meta charset="UTF-8">
-
-<!-- Mobile responsive -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>CareMind AI</title>
 
-<!-- PWA Manifest -->
-<link rel="manifest" href="manifest.json">
-
-<!-- Theme color -->
-<meta name="theme-color" content="#2b7a78">
-
-<!-- App icon for iPhone support -->
-<link rel="apple-touch-icon" href="icon-192.png">
-
-<!-- Styles -->
 <link rel="stylesheet" href="style.css">
 
-<!-- Medical icons -->
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
-
 
 <body>
 
@@ -41,7 +27,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 AI Based Disease Prediction & Healthcare Support System
 </p>
 
-
 <div class="card">
 
 <h2><i class="fa-solid fa-stethoscope"></i> Enter Symptoms</h2>
@@ -54,7 +39,6 @@ AI Based Disease Prediction & Healthcare Support System
 
 </div>
 
-
 <h3>Selected Symptoms</h3>
 
 <ul id="symptomList"></ul>
@@ -66,51 +50,35 @@ Predict Disease
 
 </div>
 
-
 <div class="card result-card">
 
 <h2><i class="fa-solid fa-hospital"></i> Prediction Result</h2>
 
-<p>
-🦠 <b>Disease:</b>
-<span id="disease">-</span>
-</p>
+<h3>Top Disease Prediction</h3>
 
 <p>
-📊 <b>Confidence:</b>
+<b id="disease">-</b>
 <span id="confidence">-</span>
-</p>
-
-<p>
-🏥 <b>Recommendation:</b>
-<span id="referral">-</span>
 </p>
 
 <div class="confidence-bar">
 <div id="confidenceFill"></div>
 </div>
 
-</div>
+<h3>Possible Related Diseases</h3>
+
+<ul id="possibleDiseases"></ul>
+
+<p>
+🏥 <b>Recommendation:</b>
+<span id="referral">-</span>
+</p>
 
 </div>
 
+</div>
 
 <script src="script.js"></script>
-
-<!-- Register Service Worker -->
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('service-worker.js')
-    .then(function(registration) {
-      console.log('Service Worker Registered:', registration);
-    })
-    .catch(function(error) {
-      console.log('Service Worker Failed:', error);
-    });
-  });
-}
-</script>
 
 </body>
 </html>
