@@ -27,6 +27,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 AI Based Disease Prediction & Healthcare Support System
 </p>
 
+<!-- Symptom input -->
+
 <div class="card">
 
 <h2><i class="fa-solid fa-stethoscope"></i> Enter Symptoms</h2>
@@ -50,29 +52,32 @@ Predict Disease
 
 </div>
 
+<!-- Result card -->
+
 <div class="card result-card">
 
 <h2><i class="fa-solid fa-hospital"></i> Prediction Result</h2>
 
 <h3>Top Disease Prediction</h3>
 
-<p>
+<p class="disease-text">
 <b id="disease">-</b>
-<span id="confidence">-</span>
+<span id="confidence"></span>
 </p>
 
 <div class="confidence-bar">
 <div id="confidenceFill"></div>
 </div>
 
-<h3>Possible Related Diseases</h3>
+<h3>Differential Diagnosis</h3>
 
 <ul id="possibleDiseases"></ul>
 
-<p>
-🏥 <b>Recommendation:</b>
+<div class="recommend-box">
+<i class="fa-solid fa-user-doctor"></i>
+<b>Recommendation:</b>
 <span id="referral">-</span>
-</p>
+</div>
 
 </div>
 

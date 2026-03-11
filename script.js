@@ -2,102 +2,91 @@ let symptoms = []
 
 function addSymptom(){
 
-    let input = document.getElementById("symptomInput")
-    let symptom = input.value.trim().toLowerCase()
+let input=document.getElementById("symptomInput")
 
-    if(symptom === "") return
+let symptom=input.value.trim().toLowerCase()
 
-    symptoms.push(symptom)
+if(symptom==="") return
 
-    let li = document.createElement("li")
-    li.innerText = symptom
+symptoms.push(symptom)
 
-    document.getElementById("symptomList").appendChild(li)
+let li=document.createElement("li")
 
-    input.value=""
+li.innerText=symptom
+
+document.getElementById("symptomList").appendChild(li)
+
+input.value=""
+
 }
 
 
 async function predict(){
 
-    if(symptoms.length === 0){
-        alert("Please add symptoms first")
-        return
-    }
+if(symptoms.length===0){
 
-    // show loading text
-    document.getElementById("disease").innerText="Connecting to AI server..."
-    document.getElementById("confidence").innerText=""
-    document.getElementById("referral").innerText=""
-    document.getElementById("possibleDiseases").innerHTML=""
+alert("Please add symptoms first")
 
-    try{
+return
 
-        let response = await fetch(
-        "https://caremind-ai.onrender.com/predict",
-        {
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({
-                symptoms:symptoms
-            })
-        })
+}
 
-        if(!response.ok){
-            throw new Error("Server not responding")
-        }
+document.getElementById("disease").innerText="Analyzing..."
 
-        let data = await response.json()
+try{
 
-        console.log("API Response:", data)
+let response=await fetch(
+"https://caremind-ai.onrender.com/predict",
+{
 
-        // confidence
-        let percent = (data.confidence_score * 100).toFixed(2)
+method:"POST",
 
-        document.getElementById("disease").innerText =
-        data.predicted_disease || "Unknown"
+headers:{
+"Content-Type":"application/json"
+},
 
-        document.getElementById("confidence").innerText =
-        " — " + percent + "%"
+body:JSON.stringify({
 
-        document.getElementById("confidenceFill").style.width =
-        percent + "%"
+symptoms:symptoms
 
-        document.getElementById("referral").innerText =
-        data.referral_decision || "Consult doctor"
+})
 
-        // possible diseases
-        let list = document.getElementById("possibleDiseases")
-        list.innerHTML=""
+})
 
-        if(data.possible_diseases && data.possible_diseases.length > 0){
+let data=await response.json()
 
-            data.possible_diseases.forEach(d=>{
+console.log(data)
 
-                let li = document.createElement("li")
+let percent=(data.confidence_score*100).toFixed(2)
 
-                li.innerText = d
+document.getElementById("disease").innerText=data.predicted_disease
 
-                list.appendChild(li)
+document.getElementById("confidence").innerText=" — "+percent+"%"
 
-            })
+document.getElementById("confidenceFill").style.width=percent+"%"
 
-        }else{
+document.getElementById("referral").innerText=data.referral_decision
 
-            let li=document.createElement("li")
-            li.innerText="No related diseases available"
-            list.appendChild(li)
+let list=document.getElementById("possibleDiseases")
 
-        }
+list.innerHTML=""
 
-    }catch(error){
+data.possible_diseases.forEach(d=>{
 
-        console.error(error)
+let li=document.createElement("li")
 
-        alert("AI server is waking up. Please try again in a few seconds.")
+li.innerHTML=`<i class="fa-solid fa-virus"></i> ${d}`
 
-    }
+list.appendChild(li)
+
+})
+
+}catch(error){
+
+console.error(error)
+
+alert("Server waking up. Try again in few seconds.")
+
+}
 
 }
