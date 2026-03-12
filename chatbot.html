@@ -15,123 +15,75 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 <style>
 
-/* Back Button */
+.chat-container{
+width:600px;
+margin:auto;
+margin-top:40px;
+background:white;
+padding:25px;
+border-radius:15px;
+box-shadow:0 10px 20px rgba(0,0,0,0.1);
+}
+
+.chat-box{
+height:350px;
+overflow-y:auto;
+border:1px solid #ddd;
+padding:15px;
+margin-bottom:15px;
+border-radius:10px;
+}
+
+.user{
+text-align:right;
+color:#2c3e50;
+margin:10px 0;
+}
+
+.bot{
+text-align:left;
+color:#16a085;
+margin:10px 0;
+}
+
+.chat-input{
+display:flex;
+gap:10px;
+}
+
+.chat-input input{
+flex:1;
+padding:10px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+.voice-btn{
+background:#e67e22;
+color:white;
+border:none;
+padding:10px 12px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.send-btn{
+background:#27ae60;
+color:white;
+border:none;
+padding:10px 15px;
+border-radius:6px;
+cursor:pointer;
+}
 
 .back-btn{
-
 background:#3498db;
 color:white;
 border:none;
-padding:8px 14px;
-border-radius:8px;
+padding:8px 12px;
+border-radius:6px;
 cursor:pointer;
 margin-bottom:15px;
-
-}
-
-.back-btn:hover{
-background:#2c80b4;
-}
-
-/* Chat Container */
-
-.chat-container{
-
-width:650px;
-margin:auto;
-margin-top:40px;
-
-background:white;
-padding:25px;
-
-border-radius:15px;
-
-box-shadow:0 10px 20px rgba(0,0,0,0.1);
-
-}
-
-/* Chat Box */
-
-.chat-box{
-
-height:350px;
-overflow-y:auto;
-
-border:1px solid #ddd;
-
-padding:15px;
-
-margin-bottom:15px;
-
-border-radius:10px;
-
-background:#f9f9f9;
-
-}
-
-/* User message */
-
-.user{
-
-text-align:right;
-color:#2c3e50;
-
-margin:10px 0;
-
-}
-
-/* Bot message */
-
-.bot{
-
-text-align:left;
-color:#16a085;
-
-margin:10px 0;
-
-}
-
-/* Input Area */
-
-.chat-input{
-
-display:flex;
-gap:10px;
-
-}
-
-/* Input box */
-
-.chat-input input{
-
-flex:1;
-padding:10px;
-
-border-radius:8px;
-border:1px solid #ccc;
-
-}
-
-/* Send Button */
-
-.chat-input button{
-
-background:#2ecc71;
-border:none;
-color:white;
-
-padding:10px 16px;
-
-border-radius:8px;
-
-cursor:pointer;
-
-}
-
-.chat-input button:hover{
-
-background:#27ae60;
-
 }
 
 </style>
@@ -142,34 +94,25 @@ background:#27ae60;
 
 <div class="chat-container">
 
-<!-- Back Button -->
-
 <a href="index.html">
 <button class="back-btn">
 <i class="fa-solid fa-arrow-left"></i> Back to Disease Predictor
 </button>
 </a>
 
-<h2>
-<i class="fa-solid fa-comment-medical"></i>
-CareMind Medical Assistant
-</h2>
+<h2>🩺 CareMind Medical Assistant</h2>
 
-<div id="chatBox" class="chat-box">
-
-<div class="bot">
-Hello! I can help with medical questions.
-</div>
-
-</div>
+<div id="chatBox" class="chat-box"></div>
 
 <div class="chat-input">
 
-<input id="userInput"
-placeholder="Ask medical question..."
-onkeypress="if(event.key==='Enter'){sendMessage()}">
+<input id="userInput" placeholder="Ask medical question...">
 
-<button onclick="sendMessage()">
+<button class="voice-btn" onclick="startVoiceChat()">
+🎤
+</button>
+
+<button class="send-btn" onclick="sendMessage()">
 Send
 </button>
 
