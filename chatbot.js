@@ -7,7 +7,7 @@ if(message === "") return
 
 let chatBox = document.getElementById("chatBox")
 
-// Show user message
+// show user message
 chatBox.innerHTML += `<div class="user">${message}</div>`
 
 let reply = "I am here to help with medical questions."
@@ -16,13 +16,11 @@ let reply = "I am here to help with medical questions."
 SYMPTOM ANALYSIS
 ========================= */
 
-if(
-message.includes("fever") &&
-message.includes("cough")
-){
+if(message.includes("fever") && message.includes("cough")){
 
 reply = `
 You may be experiencing symptoms related to:
+
 • Flu  
 • Viral infection  
 • Bronchitis  
@@ -30,43 +28,52 @@ You may be experiencing symptoms related to:
 
 💡 Suggestions:
 • Drink plenty of fluids  
-• Take rest  
-• Monitor your temperature  
+• Take adequate rest  
+• Monitor your body temperature  
 
-🏥 If symptoms persist more than 2-3 days, please visit a nearby hospital or consult a doctor.
+🏥 If symptoms continue for more than 2-3 days, please visit a hospital or consult a doctor.
 
-You can also try the AI disease prediction tool on the main page for more analysis.
+You can also try the CareMind AI prediction tool on the main page.
 `
 }
 
-else if(
-message.includes("chest pain") ||
-message.includes("shortness of breath")
-){
+else if(message.includes("fever") && message.includes("headache")){
+
+reply = `
+Fever with headache may indicate:
+
+• Viral infection  
+• Flu  
+• Dengue  
+
+💡 Suggestions:
+• Stay hydrated  
+• Take rest  
+
+🏥 If high fever persists, please consult a doctor.
+`
+}
+
+else if(message.includes("chest pain") || message.includes("shortness of breath")){
 
 reply = `
 ⚠ Chest pain or breathing difficulty can be serious.
 
 Possible causes may include:
+
 • Respiratory infection  
 • Pneumonia  
 • Asthma  
-• Cardiac issues  
+• Heart-related issues  
 
-🏥 It is recommended to seek medical attention immediately.
-
-Please visit the nearest hospital or emergency department.
+🏥 Please seek medical attention immediately or visit the nearest hospital.
 `
 }
 
-else if(
-message.includes("vomiting") ||
-message.includes("nausea") ||
-message.includes("stomach pain")
-){
+else if(message.includes("vomiting") || message.includes("nausea") || message.includes("stomach pain")){
 
 reply = `
-These symptoms may indicate:
+These symptoms may be related to:
 
 • Gastroenteritis  
 • Food poisoning  
@@ -75,38 +82,99 @@ These symptoms may indicate:
 💡 Suggestions:
 • Drink oral rehydration fluids  
 • Eat light food  
-• Avoid oily food
+• Avoid oily or spicy food  
 
-🏥 If vomiting continues for more than 24 hours, consult a doctor.
+🏥 If symptoms continue for more than 24 hours, consult a doctor.
 `
 }
 
-else if(
-message.includes("headache") &&
-message.includes("fever")
-){
+else if(message.includes("fatigue") || message.includes("tired")){
 
 reply = `
-Fever with headache may be related to:
+Fatigue can occur due to:
 
-• Viral infection  
-• Flu  
-• Dengue  
+• Infection  
+• Stress  
+• Lack of sleep  
+• Nutritional deficiency  
 
-💡 Please rest and stay hydrated.
+💡 Try to rest well and stay hydrated.
 
-🏥 If severe headache or high fever occurs, please visit a hospital for evaluation.
+🏥 If fatigue persists for several days, please consult a doctor.
 `
 }
 
 /* =========================
-GENERAL QUESTIONS
+DISEASE INFORMATION
 ========================= */
 
-else if(
-message.includes("what should i do") ||
-message.includes("what can i do")
-){
+else if(message.includes("dengue")){
+
+reply = `
+Dengue is a mosquito-borne viral infection.
+
+Common symptoms include:
+
+• High fever  
+• Severe headache  
+• Joint pain  
+• Fatigue  
+
+🏥 Medical attention is recommended if symptoms worsen.
+`
+}
+
+else if(message.includes("pneumonia")){
+
+reply = `
+Pneumonia is a lung infection that can cause:
+
+• Cough  
+• Fever  
+• Chest pain  
+• Difficulty breathing  
+
+🏥 It usually requires medical treatment, so please consult a doctor.
+`
+}
+
+else if(message.includes("malaria")){
+
+reply = `
+Malaria is caused by parasites transmitted through mosquito bites.
+
+Common symptoms include:
+
+• Fever  
+• Chills  
+• Sweating  
+• Headache  
+
+🏥 Medical treatment is necessary.
+`
+}
+
+else if(message.includes("covid")){
+
+reply = `
+COVID-19 is a viral respiratory illness.
+
+Common symptoms include:
+
+• Fever  
+• Cough  
+• Fatigue  
+• Breathing difficulty  
+
+🏥 Please consult a healthcare professional if symptoms worsen.
+`
+}
+
+/* =========================
+GENERAL HEALTH QUESTIONS
+========================= */
+
+else if(message.includes("what can i do") || message.includes("what should i do")){
 
 reply = `
 Here are some general health tips:
@@ -114,60 +182,76 @@ Here are some general health tips:
 • Stay hydrated  
 • Get enough rest  
 • Monitor your symptoms  
-• Avoid self-medication
+• Avoid self-medication  
 
-🏥 If symptoms worsen or last more than 2-3 days, please consult a healthcare professional.
+🏥 If symptoms worsen or persist, please consult a doctor.
 
-You may also use the CareMind AI predictor on the main page to check possible diseases.
+You may also use the CareMind AI predictor on the main page.
 `
 }
 
-else if(
-message.includes("hospital") ||
-message.includes("doctor")
-){
+else if(message.includes("doctor") || message.includes("hospital")){
 
 reply = `
 If you are experiencing severe symptoms, it is best to visit a healthcare provider.
 
-🏥 You can consult:
+🏥 You may consult:
 
-• Government hospitals
-• Private clinics
-• Emergency care centers
+• Government hospitals  
+• Private clinics  
+• Emergency care centers  
 
-If symptoms are urgent (breathing difficulty, severe chest pain, high fever), please seek immediate medical attention.
+If symptoms are urgent, please seek immediate medical attention.
 `
 }
 
 /* =========================
-DISEASE EXPLANATION
+GRATITUDE RESPONSES
 ========================= */
 
-else if(message.includes("dengue")){
+else if(message.includes("thank") || message.includes("thanks") || message.includes("thank you")){
+
 reply = `
-Dengue is a mosquito-borne viral infection.
+You're welcome! 😊
 
-Common symptoms include:
-• High fever
-• Severe headache
-• Joint pain
-• Fatigue
+I'm glad I could help.
 
-🏥 If symptoms worsen, consult a doctor immediately.
+If you have more health questions or symptoms,
+feel free to ask.
+
+You can also use the CareMind AI prediction tool on the main page.
 `
 }
 
-else if(message.includes("pneumonia")){
+/* =========================
+ACKNOWLEDGEMENT RESPONSES
+========================= */
+
+else if(message === "ok" || message === "okay" || message === "alright"){
+
 reply = `
-Pneumonia is a lung infection that causes:
+Alright 👍
 
-• Cough
-• Fever
-• Chest pain
-• Difficulty breathing
+If you have more medical questions,
+I'm here to help.
 
-🏥 Medical treatment may be required, so please consult a doctor.
+You can also try the CareMind AI disease predictor.
+`
+}
+
+/* =========================
+GREETING
+========================= */
+
+else if(message.includes("hello") || message.includes("hi") || message.includes("hey")){
+
+reply = `
+Hello! 👋
+
+I'm the CareMind Medical Assistant.
+
+You can ask me about symptoms, diseases,
+or general health advice.
 `
 }
 
@@ -180,18 +264,22 @@ else{
 reply = `
 I understand your question.
 
-For disease prediction, please enter your symptoms in the AI prediction system on the main page.
+For accurate disease prediction,
+please enter your symptoms in the
+CareMind AI prediction system on the main page.
 
-If you are experiencing health issues, I recommend consulting a qualified medical professional.
+If symptoms are serious,
+please consult a qualified medical professional.
 `
-
 }
 
-// Show bot reply
+// show bot message
 chatBox.innerHTML += `<div class="bot">${reply}</div>`
 
+// auto scroll
 chatBox.scrollTop = chatBox.scrollHeight
 
-input.value=""
+// clear input
+input.value = ""
 
 }
